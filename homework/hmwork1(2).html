@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Container chính sử dụng Grid */
+.product-grid {
+  display: grid;
+  /* Tạo các cột linh hoạt, mỗi cột có chiều rộng tối thiểu 200px */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px; /* Khoảng cách giữa các sản phẩm */
+  padding: 20px;
+}
+
+/* Định dạng cho từng thẻ sản phẩm */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #eee;
+  padding: 15px;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.product-card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.product-card h3 {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.product-card .price {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.product-card button {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+  transition: background-color 0.3s;
+}
+
+.product-card button:hover {
+  background-color: #f0f0f0;
+}
+    </style>
+</head>
+<body>
+    <div class="product-grid">
+  <!-- Thẻ sản phẩm mẫu 1 -->
+  <div class="product-card">
+    <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTvh6sbpLFTxQhr_W7ngzlhVq9ZWV0iEhHiRCWoNkVQCXlHH10bsZ5bgRbG5BxNVlvkzEsSIYQ3X9x6Kn0B3lWJLi3jsG65xi7UDThknrgycsd_1JIMxUAO8YdYswBl2wR6418xYcUifQ&usqp=CAc" alt="Fjallraven Backpack">
+    <h3>Fjallraven - Foldsack No. 1 Backpack...</h3>
+    <p class="price">Price: $109.95</p>
+    <button>ADD TO CART</button>
+  </div>
+  
+  <!-- Thẻ sản phẩm mẫu 2 -->
+  <div class="product-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0rEFTRCKTQDHJrrw1qxIRIHpc7SgeFcsORDtzio54sA&s=10" alt="Mens T-Shirt">
+    <h3>Mens Casual Premium Slim Fit T-Shirts</h3>
+    <p class="price">Price: $22.3</p>
+    <button>ADD TO CART</button>
+  </div>
+  
+  <!-- Thêm các thẻ sản phẩm khác tương tự ở đây -->
+</div>
+</body>
+</html>

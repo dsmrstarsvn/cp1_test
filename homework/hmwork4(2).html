@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Tracker</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h2 { font-weight: bold; }
+        #taskInput { padding: 4px; border: 1px solid #0000FF; outline: none; }
+        #addBtn { padding: 4px 8px; cursor: pointer; }
+        ul { list-style-type: disc; padding-left: 20px; }
+        .task-item { margin: 5px 0; }
+        .task-item button { margin-left: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h2>Task Tracker</h2>
+    <!-- Các phần tử giao diện như hình minh họa -->
+    <input type="text" id="taskInput" placeholder="New task">
+    <button id="addBtn">Add Task</button>
+
+    <ul id="taskList"></ul>
+
+    <script>
+        // Yêu cầu 1: Sử dụng mảng để lưu trữ các công việc dưới dạng đối tượng với id, tiêu đề và trạng thái
+        let tasks = [];
+
+        const taskInput = document.getElementById('taskInput');
+        const addBtn = document.getElementById('addBtn');
+        const taskList = document.getElementById('taskList');
+
+        // Yêu cầu 2 & 3: Read - Đọc mảng và sử dụng DOM manipulation để hiển thị các công việc một cách động
+        function renderTasks() {
+            taskList.innerHTML = ''; // Xóa nội dung cũ để cập nhật lại
+            
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.className = 'task-item';
+                
+                const titleSpan = document.createElement('span');
+                titleSpan.textContent = task.title + ' ';
+                // Đổi trạng thái hoàn thành khi click vào chữ
+                titleSpan.style.cursor = 'pointer';
+                if (task.completed) {
+                    titleSpan.style.textDecoration = 'line-through';
+                }
+                titleSpan.onclick = () => toggleTask(task.id);
+                
+                // Nút Edit
+                const editBtn = document.createElement('button');
+                editBtn.textContent = 'Edit';
+                editBtn.onclick = () => editTask(task.id);
+                
+                // Nút Delete
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.onclick = () => deleteTask(task.id);
+                
+                li.appendChild(titleSpan);
+                li.appendChild(editBtn);
+                li.appendChild(deleteBtn);
+                
+                taskList.appendChild(li);
+            });
+        }
+
+        // Yêu cầu 2: Create - Thêm công việc
+        addBtn.addEventListener('click', () => {
+            const title = taskInput.value.trim();
+            if (title !== '') {
+                const newTask = {
+                    id: Date.now(), // ID tạo động bằng thời gian hiện tại
+                    title: title,
+                    completed: false
+                };
+                tasks.push(newTask);
+                taskInput.value = ''; // Reset ô nhập liệu
+                renderTasks();
+            }
+        });
+
+        // Yêu cầu 2: Update - Sửa đổi tiêu đề task
+        function editTask(id) {
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                const newTitle = prompt('Nhập tiêu đề mới:', task.title);
+                if (newTitle !== null && newTitle.trim() !== '') {
+                    task.title = newTitle.trim();
+                    renderTasks();
+                }
+            }
+        }
+
+        // Yêu cầu 2: Update - Cập nhật trạng thái hoàn thành
+        function toggleTask(id) {
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                renderTasks();
+            }
+        }
+
+        // Yêu cầu 2: Delete - Xóa công việc khỏi mảng
+        function deleteTask(id) {
+            tasks = tasks.filter(t => t.id !== id);
+            renderTasks();
+        }
+
+        // Gọi hàm lần đầu để khởi tạo UI
+        renderTasks();
+    </script>
+</body>
+</html>
